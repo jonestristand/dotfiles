@@ -50,6 +50,8 @@
         name: yay
         use: makepkg
         state: present
+      become: yes
+      become_user: aur_builder
 
     - name: Install AUR packages
       kewlfft.aur.aur:
@@ -57,6 +59,8 @@
           - ttf-firacode
         use: yay
         state: present
+      become: yes
+      become_user: aur_builder
 
     - name: Remove `aur_builder` user
       ansible.builtin.user:
