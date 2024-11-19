@@ -44,6 +44,8 @@
           - github-cli
           - docker
           - kitty
+          - exa
+          - zoxide
         state: present
 
     - name: Install yay AUR helper
@@ -58,6 +60,7 @@
       kewlfft.aur.aur:
         name:
           - ttf-firacode
+          - slack-desktop
         use: yay
         state: present
       become: yes

@@ -136,4 +136,4 @@ alias cm='chezmoi'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-eval "$(rbw gen-completions zsh)"
+# eval "$(rbw gen-completions zsh)"
