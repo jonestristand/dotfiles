@@ -1,0 +1,49 @@
+---
+- name: Machine setup
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: true
+  vars:
+
+
+  tasks:
+    - name: Get my user
+      ansible.builtin.set_fact:
+        remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+
+    - name: Install packages
+      ansible.builtin.package:
+        name:
+          - zsh
+          - git
+          - htop
+          - gh
+          - ripgrep
+          - fzf
+          - tmux
+          - make
+          - patch
+          - bzip2
+          - fd-find
+          - docker
+        state: present
+
+    - name: Install AUR packages
+      kewlfft.aur.aur:
+        name:
+          - ttf-firacode
+        use: makepkg
+        state: present
+
+    - name: Change shell to zsh
+      ansible.builtin.user:
+        name: "{{ remote_regular_user }}"
+        groups: docker
+        append: yes
+        shell: /usr/bin/zsh
+    - name: Enable docker socket
+      ansible.builtin.systemd:
+        name: docker.socket
+        enabled: yes
+        state: started

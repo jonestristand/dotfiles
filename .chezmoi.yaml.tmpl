@@ -1,0 +1,17 @@
+color: on
+format: yaml
+data:
+  user:
+    first_name: {{ $fname := promptString "Enter your first name" -}}{{ $fname }}
+    last_name: {{ $lname := promptString "Enter your last name" -}}{{ $lname }}
+    name: {{ $fname }} {{ $lname }}
+    git:
+      email: {{ promptString "Enter GitHub email" }}
+      username: {{ promptString "Enter GitHub username" }}
+env:
+edit:
+  command: code
+  args: ["--wait"]
+  apply: true
+git:
+  autoAdd: true
