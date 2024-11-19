@@ -63,6 +63,8 @@
         name: aur_builder
         state: absent
         remove: yes
+        
+    - name: Cleanup `aur_builder` sudo permissions
       ansible.builtin.file:
         path: /etc/sudoers.d/11-install-aur_builder
         state: absent
