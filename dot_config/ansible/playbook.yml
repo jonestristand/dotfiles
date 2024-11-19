@@ -24,7 +24,8 @@
           - make
           - patch
           - bzip2
-          - fd-find
+          - fd
+          - github-cli
           - docker
         state: present
 
@@ -32,7 +33,6 @@
       kewlfft.aur.aur:
         name:
           - ttf-firacode
-          - github-cli-git
         use: makepkg
         state: present
 
