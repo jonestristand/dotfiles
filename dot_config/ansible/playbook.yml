@@ -12,6 +12,22 @@
       ansible.builtin.set_fact:
         remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
 
+    - name: Create the `aur_builder` user
+      become: yes
+      ansible.builtin.user:
+        name: aur_builder
+        create_home: yes
+        group: wheel
+
+    - name: Allow the `aur_builder` user to run `sudo pacman` without a password
+      become: yes
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers.d/11-install-aur_builder
+        line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
+        create: yes
+        mode: 0644
+        validate: 'visudo -cf %s'
+
     - name: Install packages
       ansible.builtin.package:
         name:
@@ -29,12 +45,27 @@
           - docker
         state: present
 
+    - name: Install yay AUR helper
+      kewlfft.aur.aur:
+        name: yay
+        use: makepkg
+        state: present
+
     - name: Install AUR packages
       kewlfft.aur.aur:
         name:
           - ttf-firacode
-        use: makepkg
+        use: yay
         state: present
+
+    - name: Remove `aur_builder` user
+      ansible.builtin.user:
+        name: aur_builder
+        state: absent
+        remove: yes
+      ansible.builtin.file:
+        path: /etc/sudoers.d/11-install-aur_builder
+        state: absent
 
     - name: Change shell to zsh
       ansible.builtin.user:
@@ -42,6 +73,7 @@
         groups: docker
         append: yes
         shell: /usr/bin/zsh
+        
     - name: Enable docker socket
       ansible.builtin.systemd:
         name: docker.socket
