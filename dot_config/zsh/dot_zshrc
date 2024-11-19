@@ -11,7 +11,6 @@ export GOPATH="$XDG_DATA_HOME"/go
 export GOMODCACHE="$XDG_CACHE_HOME"/go/mod
 export NB_DIR="$XDG_DATA_HOME/nb"
 export NBRC_PATH="$XDG_CONFIG_HOME/nbrc"
-export NVM_DIR="$XDG_DATA_HOME"/nvm 
 export BARTIB_FILE="$XDG_DATA_HOME/bartib/activities.bartib"
 
 export TYPST_INSTALL="$XDG_CONFIG_HOME/typst"
@@ -19,6 +18,9 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH=$PATH:~/.local/bin:$TYPST_INSTALL/bin:/usr/local/go/bin:$GOPATH/bin:$BUN_INSTALL/bin
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
 export ANDROID_AVD_HOME="$HOME/.config/.android/avd"
+
+export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdf/asdfrc"
+export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
 
 # Set the directory we want to store zinit and plugins in
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -46,6 +48,7 @@ zinit snippet OMZP::sudo
 zinit snippet OMZP::command-not-found
 zinit snippet OMZP::nvm
 zinit snippet OMZP::npm
+zinit snippet OMZP::asdf
 
 # Load completions
 autoload -U compinit && compinit
