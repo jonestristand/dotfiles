@@ -43,6 +43,7 @@
           - fd
           - github-cli
           - docker
+          - kitty
         state: present
 
     - name: Install yay AUR helper
