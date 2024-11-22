@@ -22,6 +22,10 @@ export ANDROID_AVD_HOME="$HOME/.config/.android/avd"
 export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdf/asdfrc"
 export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
 
+export ANSIBLE_HOME="${XDG_CONFIG_HOME}/ansible"
+export ANSIBLE_CONFIG="${ANSIBLE_HOME}/ansible.cfg"
+export ANSIBLE_GALAXY_CACHE_DIR="${XDG_CACHE_HOME}/ansible/galaxy_cache"
+
 # Set the directory we want to store zinit and plugins in
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -135,6 +139,7 @@ alias ls='exa -h'
 alias ll='exa -lh'
 alias la='ls -alh'
 alias cm='chezmoi'
+alias icat='kitten icat'
 
 # Shell integrations
 eval "$(fzf --zsh)"

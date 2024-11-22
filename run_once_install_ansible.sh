@@ -34,7 +34,7 @@ case "${OS}" in
         ;;
 esac
 
-ansible-galaxy collection install -r ~/.config/ansible/requirements.yml
+ansible-galaxy install -r ~/.config/ansible/requirements.yml
 ansible-playbook ~/.config/ansible/playbook.yml --ask-become-pass
 
 echo "Ansible installation complete."

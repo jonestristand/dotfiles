@@ -1,0 +1,33 @@
+---
+- name: Setup Docker
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: false
+  vars:
+
+  tasks:
+    - name: Install docker packages
+      ansible.builtin.package:
+        name:
+          - docker
+          - docker-compose
+        state: present
+        
+    - name: Enable docker socket
+      ansible.builtin.systemd:
+        name: docker.socket
+        enabled: yes
+        state: started
+
+
+    - name: Add Docker group
+      ansible.builtin.group:
+        name: docker
+        state: present
+
+    - name: Add user to docker group
+      ansible.builtin.user:
+        name: "{{ remote_regular_user }}"
+        groups: docker
+        append: yes

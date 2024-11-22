@@ -6,11 +6,14 @@
   gather_facts: true
   vars:
 
-
   tasks:
     - name: Get my user
       ansible.builtin.set_fact:
         remote_regular_user: "{{ ansible_env.SUDO_USER or ansible_user_id }}"
+    
+    - name: Check user
+      ansible.builtin.debug:
+        var: remote_regular_user
 
     - name: Create the `aur_builder` user
       become: yes
@@ -46,6 +49,9 @@
           - kitty
           - exa
           - zoxide
+          - jdk17-openjdk
+          - ranger
+          - gnome-font-viewer
         state: present
 
     - name: Install yay AUR helper
@@ -59,14 +65,45 @@
     - name: Install AUR packages
       kewlfft.aur.aur:
         name:
-          - ttf-firacode
           - slack-desktop
           - asdf-vm
+          - xdg-ninja
+          - bartib
+          - nb
+          - spotify
         use: yay
         state: present
       become: yes
       become_user: aur_builder
 
+    - name: Change shell to zsh
+      ansible.builtin.user:
+        name: "{{ remote_regular_user }}"
+        groups: docker
+        append: yes
+        shell: /usr/bin/zsh
+
+- name: Setup Docker
+  ansible.builtin.import_playbook: ./playbooks/docker.yml
+  vars: 
+    remote_regular_user: "{{ remote_regular_user }}"
+
+- name: Setup Android SDK
+  ansible.builtin.import_playbook: ./playbooks/android-sdk.yml
+  vars: 
+    remote_regular_user: "{{ remote_regular_user }}"
+
+- name: Setup Fonts
+  ansible.builtin.import_playbook: ./playbooks/fonts.yml
+  vars: 
+    remote_regular_user: "{{ remote_regular_user }}"
+
+- name: Cleanup
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: false
+  tasks:
     - name: Remove `aur_builder` user
       ansible.builtin.user:
         name: aur_builder
@@ -77,16 +114,3 @@
       ansible.builtin.file:
         path: /etc/sudoers.d/11-install-aur_builder
         state: absent
-
-    - name: Change shell to zsh
-      ansible.builtin.user:
-        name: "{{ remote_regular_user }}"
-        groups: docker
-        append: yes
-        shell: /usr/bin/zsh
-        
-    - name: Enable docker socket
-      ansible.builtin.systemd:
-        name: docker.socket
-        enabled: yes
-        state: started

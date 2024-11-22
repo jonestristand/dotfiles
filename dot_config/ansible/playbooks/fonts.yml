@@ -1,0 +1,19 @@
+---
+- name: Setup Fonts
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: false
+  vars:
+
+  tasks:
+    - name: Install fonts
+      ansible.builtin.package:
+        name:
+          - ttf-firacode-nerd
+          - otf-monaspace-nerd
+          - ttf-inconsolata-nerd
+          - ttf-cascadia-code-nerd
+          - ttf-space-mono-nerd
+          - ttf-roboto-mono-nerd
+        state: present

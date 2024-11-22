@@ -1,0 +1,29 @@
+---
+- name: Setup Android Studio
+  hosts: localhost
+  become: true
+  connection: local
+  gather_facts: false
+  vars:
+
+  tasks:    
+    - name: Install Android SDK packages
+      kewlfft.aur.aur:
+        name:
+          - android-emulator
+          - android-google-apis-playstore-x86-64-system-image
+          - android-platform-33
+          - android-platform-34
+          - android-sdk-build-tools
+          - android-sdk-build-tools-33.0.1
+          - android-sdk-cmdline-tools-latest
+          - android-sdk-platform-tools
+        use: yay
+        state: present
+      become: yes
+      become_user: aur_builder
+
+    - name: "Fix permissions on sdk directory (hack)"
+      ansible.builtin.file:
+        path: /opt/android-sdk
+        mode: '777'
