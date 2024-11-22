@@ -17,7 +17,7 @@ export TYPST_INSTALL="$XDG_CONFIG_HOME/typst"
 export BUN_INSTALL="$HOME/.bun"
 export PATH=$PATH:~/.local/bin:$TYPST_INSTALL/bin:/usr/local/go/bin:$GOPATH/bin:$BUN_INSTALL/bin
 export WINEPREFIX="$XDG_DATA_HOME"/wineprefixes/default
-export ANDROID_AVD_HOME="$HOME/.config/.android/avd"
+export ANDROID_AVD_HOME="$XDG_DATA_HOME/android/avd"
 
 export ASDF_CONFIG_FILE="${XDG_CONFIG_HOME}/asdf/asdfrc"
 export ASDF_DATA_DIR="${XDG_DATA_HOME}/asdf"
