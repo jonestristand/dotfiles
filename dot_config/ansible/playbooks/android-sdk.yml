@@ -27,3 +27,8 @@
       ansible.builtin.file:
         path: /opt/android-sdk
         mode: '777'
+    
+    - name: "Create AVD directory at $XDG_DATA_HOME/android/avd"
+      ansible.builtin.file:
+        path: "/home/{{ remote_regular_user }}/.local/share/android/avd"
+        state: directory
