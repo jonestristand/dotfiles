@@ -32,13 +32,14 @@
 
     #     state: present
 
-    - name: Install coding fonts (AUR)
+    - name: Install presentation fonts (AUR)
       kewlfft.aur.aur:
         use: yay
         name:
           - ttf-raleway-variable
           - ttf-roboto-variable
           - ttf-inter
+          - otf-apple-fonts
         state: present
       become: true
       become_user: aur_builder

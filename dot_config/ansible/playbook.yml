@@ -54,6 +54,9 @@
           - gnome-font-viewer
           - neovim
           - firefox
+          - libreoffice-fresh
+          - feh
+          - httpie
         state: present
 
     - name: Install yay AUR helper

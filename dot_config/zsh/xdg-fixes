@@ -42,6 +42,9 @@ export PYENV_ROOT=${XDG_DATA_HOME}/pyenv
 export PYLINTHOME=${XDG_CACHE_HOME}/pylint
 export PYTHONSTARTUP=${XDG_CONFIG_HOME}/pythonrc
 
+# HTTPie
+export HTTPIE_CONFIG_DIR=${XDG_CONFIG_HOME}/httpie
+
 # General/Misc
 export CUDA_CACHE_PATH=${XDG_CACHE_HOME}/nv
 export GNUPGHOME=${XDG_DATA_HOME}/gnupg
