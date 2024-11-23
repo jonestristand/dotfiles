@@ -7,7 +7,7 @@
   vars:
 
   tasks:
-    - name: Install fonts
+    - name: Install coding fonts (pacman)
       ansible.builtin.package:
         name:
           - ttf-firacode-nerd
@@ -17,3 +17,28 @@
           - ttf-space-mono-nerd
           - ttf-roboto-mono-nerd
         state: present
+
+    # - name: Install coding fonts (AUR)
+    #   kewlfft.aur.aur:
+    #     use: yay
+    #     name:
+    #     state: present
+    #   become: true
+    #   become_user: aur_builder
+
+    # - name: Install presentation fonts (pacman)
+    #   ansible.builtin.package:
+    #     name:
+
+    #     state: present
+
+    - name: Install coding fonts (AUR)
+      kewlfft.aur.aur:
+        use: yay
+        name:
+          - ttf-raleway-variable
+          - ttf-roboto-variable
+          - ttf-inter
+        state: present
+      become: true
+      become_user: aur_builder
