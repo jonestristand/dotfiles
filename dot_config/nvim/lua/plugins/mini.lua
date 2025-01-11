@@ -5,8 +5,8 @@ return {
 			local icons = require("mini.icons")
 			icons.setup({})
 
-			local statusline = require("mini.statusline")
-			statusline.setup({ use_icons = true })
+			-- local statusline = require("mini.statusline")
+			-- statusline.setup({ use_icons = true })
 
 			local move = require("mini.move")
 			move.setup({
