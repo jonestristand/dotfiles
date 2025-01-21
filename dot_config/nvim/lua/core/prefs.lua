@@ -7,6 +7,8 @@ vim.opt.fillchars = { eob = " " }
 vim.opt.clipboard = "unnamed,unnamedplus"
 vim.opt.autoread = true
 
+-- vim.opt.autochdir = true
+
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -37,3 +39,14 @@ vim.g.markdown_fenced_languages = {
 	"ts=typescript",
 	"lua=lua",
 }
+
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "",
+			[vim.diagnostic.severity.WARN] = "",
+			[vim.diagnostic.severity.INFO] = "",
+			[vim.diagnostic.severity.HINT] = "",
+		},
+	},
+})

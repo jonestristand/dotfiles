@@ -33,7 +33,7 @@ return {
 				function(server_name)
 					require("lspconfig")[server_name].setup({
 						capabilities = capabilities,
-						on_attach = on_attach_notify,
+						-- on_attach = on_attach_notify,
 					})
 				end,
 				["ts_ls"] = function()
@@ -42,7 +42,7 @@ return {
 						--[[ on_attach = function()
 							print("TS_LS Attached")
 						end, ]]
-						on_attach = on_attach_notify,
+						-- on_attach = on_attach_notify,
 						capabilities = capabilities,
 						root_dir = lspconfig.util.root_pattern("package.json"),
 						single_file_support = false,
@@ -54,7 +54,7 @@ return {
 						--[[ on_attach = function()
 							print("DenoLS Attached")
 						end, ]]
-						on_attach = on_attach_notify,
+						-- on_attach = on_attach_notify,
 						capabilities = capabilities,
 						root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
 					})

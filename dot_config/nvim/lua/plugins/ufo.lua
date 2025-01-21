@@ -84,7 +84,7 @@ return {
 						},
 						click = "v:lua.ScSa",
 					},
-					{ text = { builtin.foldfunc, " " }, click = "v:lua.ScFa" },
+					{ text = { builtin.foldfunc, " ", colwidth = 2 }, click = "v:lua.ScFa" },
 					-- { text = { "d" } },
 				},
 			})

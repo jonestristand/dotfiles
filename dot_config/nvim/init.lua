@@ -1,11 +1,15 @@
--- Map leader key
+---@diagnostic disable: param-type-mismatch
+--  Map leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
----@diagnostic disable-next-line: param-type-mismatch
-if vim.fn.argc() == 1 and vim.fn.isdirectory(vim.fn.argv(0)) == 1 then
-	---@diagnostic disable-next-line: param-type-mismatch
-	vim.fn.chdir(vim.fn.argv(0))
+if vim.fn.argc() == 1 then
+	local fsinfo = vim.loop.fs_stat(vim.fn.argv(0))
+	if fsinfo and fsinfo.type == "directory" then
+		vim.fn.chdir(vim.fn.argv(0))
+	else
+		vim.fn.chdir(vim.fn.fnamemodify(vim.fn.argv(0), ":h"))
+	end
 end
 
 if vim.g.vscode then
@@ -39,7 +43,7 @@ else
 	require("lazy").setup({
 		{ import = "plugins" },
 		{ import = "plugins.languages" },
-		-- { "peacock.nvim", dev = true, opts = {} },
+		{ "peacock.nvim", dev = true, opts = {} },
 	}, {
 		dev = { path = "~/dev/nvimplugins/" },
 		change_detection = {
@@ -49,6 +53,7 @@ else
 
 	-- Load saved color scheme
 	require("current-theme")
+
 	-- Load main config
 	require("core")
 end

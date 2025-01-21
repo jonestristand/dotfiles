@@ -1,4 +1,4 @@
-return {
+--[[ return {
 	{ "ficcdaf/ashen.nvim" },
 	{ "catppuccin/nvim", name = "catppuccin" },
 	{ "zootedb0t/citruszest.nvim" },
@@ -20,4 +20,7 @@ return {
 	{ "sam4llis/nvim-tundra", opts = { dim_inactive_windows = { enabled = true } } },
 	{ "vague2k/vague.nvim" },
 	{ "zenbones-theme/zenbones.nvim", dependencies = "rktjmp/lush.nvim" },
+} ]]
+return {
+	"notken12/base46-colors",
 }

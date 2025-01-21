@@ -1,0 +1,27 @@
+--[[ return {
+	init = function(self)
+		self.timer = vim.uv.new_timer()
+		if self.timer then -- ensure created properly
+			self.timer:start(10000, 10000, function()
+				self.timer:stop()
+				vim.schedule(function()
+					vim.api.nvim_exec_autocmds("User", { pattern = "HeirlineTimeUpdate" })
+				end)
+			end)
+		end
+	end,
+	provider = function()
+		return vim.fn.strftime(" %H:%M ")
+	end,
+	hl = function(self)
+		return { fg = "white", bg = self:getModeHl().bg25 }
+	end,
+	update = {
+		"User",
+		pattern = "HeirlineTimeUpdate",
+		callback = vim.schedule_wrap(function()
+			vim.cmd("redrawstatus!")
+			vim.notify("time redraw")
+		end),
+	},
+} ]]

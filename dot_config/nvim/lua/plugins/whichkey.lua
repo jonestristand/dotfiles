@@ -2,11 +2,18 @@ return {
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
+		enabled = false,
+		lazy = true,
 		---@class wk.Opts
 		opts = {
 			preset = "modern",
 			delay = 500,
 			spec = {},
+			plugins = {
+				presets = {
+					operators = false,
+				},
+			},
 		},
 		keys = {
 			{
