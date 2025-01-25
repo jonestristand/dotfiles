@@ -22,5 +22,5 @@
 	{ "zenbones-theme/zenbones.nvim", dependencies = "rktjmp/lush.nvim" },
 } ]]
 return {
-	"notken12/base46-colors",
+	"jonestristand/base46-colors",
 }

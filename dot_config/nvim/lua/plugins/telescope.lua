@@ -12,6 +12,10 @@ return {
 
 		telescope.setup({
 			defaults = {
+				file_ignore_patterns = {
+					"node_modules",
+					".git",
+				},
 				mappings = {
 					n = {
 						["<c-d>"] = require("telescope.actions").delete_buffer,
@@ -24,6 +28,9 @@ return {
 			pickers = {
 				lsp_references = {
 					theme = "ivy",
+				},
+				find_files = {
+					follow = true,
 				},
 			},
 			extensions = {

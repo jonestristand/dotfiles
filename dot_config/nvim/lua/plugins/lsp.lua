@@ -8,7 +8,9 @@ return {
 			"folke/lazydev.nvim",
 		},
 		config = function()
-			require("mason").setup()
+			require("mason").setup({
+				ensure_installed = { "clangd", "clang-format", "codelldb" },
+			})
 			require("mason-lspconfig").setup()
 
 			local capabilities = require("blink.cmp").get_lsp_capabilities()

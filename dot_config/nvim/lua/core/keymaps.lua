@@ -1,5 +1,8 @@
 map = vim.keymap.set
 
+-- neovim keymaps
+map("n", "<leader>qq", "<cmd>qall<CR>", { desc = "Quit all" })
+
 -- better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
@@ -96,6 +99,16 @@ map(
 	"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
 	{ desc = "LSP Definitions / references / ... (Trouble)" }
 )
+
+-- Debug
+map("", "<F5>", require("dap").continue, { desc = "Continue debugging" })
+map("", "<F10>", require("dap").step_over, { desc = "Step over" })
+map("", "<F11>", require("dap").step_into, { desc = "Step into" })
+map("", "<F12>", require("dap").step_out, { desc = "Step out" })
+map("n", "<leader>b", require("dap").toggle_breakpoint, { desc = "Toggle breakpoint" })
+map("n", "<leader>B", function()
+	require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+end)
 
 -- Git
 map("n", "<leader>gb", function()
