@@ -35,4 +35,13 @@ M.lerprgb = function(color1, color2, f)
 	return M.rgb2hex(M.lerpcolor(M.hex2rgb(color1), M.hex2rgb(color2), f))
 end
 
+M.getcolors = function(default_theme)
+	default_theme = default_theme or "kanagawa"
+	if not vim.g.colors_name then
+		return require(default_theme .. ".palette")
+	else
+		return require(vim.g.colors_name .. ".palette")
+	end
+end
+
 return M

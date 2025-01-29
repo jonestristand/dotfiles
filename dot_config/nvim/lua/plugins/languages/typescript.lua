@@ -7,6 +7,8 @@ return {
 			vim.keymap.set("n", "gd", function()
 				vim.lsp.buf.definition()
 			end, { desc = "Go to Definition (TS) " })
+			vim.keymap.set("n", "<leader>cR", "<cmd>TSToolsRenameFile<CR>", { desc = "Rename File (TS)" })
+			vim.keymap.set("n", "<leader>co", "<cmd>TSToolsOrganizeImports<CR>", { desc = "Organize Imports (TS)" })
 			-- Disable formatting
 			client.server_capabilities.documentFormattingProvider = false
 			client.server_capabilities.documentRangeFormattingProvider = false

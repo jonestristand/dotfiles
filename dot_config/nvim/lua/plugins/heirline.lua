@@ -10,12 +10,7 @@ return {
 
 		-- Setup
 		local function setup_colors()
-			local colors = {}
-			if not vim.g.colors_name then
-				colors = require("kanagawa.palette")
-			else
-				colors = require(vim.g.colors_name .. ".palette")
-			end
+			local colors = colorutils.getcolors()
 
 			local colorlist = {}
 			for color, value in pairs(colors) do

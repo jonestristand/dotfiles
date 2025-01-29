@@ -12,6 +12,7 @@ return {
 		},
 		config = function()
 			local configs = require("nvim-treesitter.configs")
+			---@diagnostic disable-next-line: missing-fields
 			configs.setup({
 				-- Languages to be automatically installed
 				ensure_installed = {
@@ -41,7 +42,7 @@ return {
 					disable = {},
 				},
 
-				textobjects = {
+				--[[ textobjects = {
 					select = {
 						enable = true,
 						lookahead = true,
@@ -60,11 +61,8 @@ return {
 								desc = "Select language scope",
 							},
 						},
-						--[[ selection_modes = {
-							["@function.outer"] = "V",
-						}, ]]
 					},
-				},
+				}, ]]
 
 				indent = {
 					enable = true,
