@@ -1,7 +1,6 @@
 --[[ return {
 	{ "ficcdaf/ashen.nvim" },
 	{ "catppuccin/nvim", name = "catppuccin" },
-	{ "zootedb0t/citruszest.nvim" },
 	{ "scottmckendry/cyberdream.nvim", opts = { borderless_telescope = true } },
 	{ "embark-theme/vim" },
 	{ "neanias/everforest-nvim" },
@@ -25,4 +24,5 @@ return {
 	"jonestristand/base46-colors",
 	"sho-87/kanagawa-paper.nvim",
 	"AlexvZyl/nordic.nvim",
+	"zootedb0t/citruszest.nvim",
 }

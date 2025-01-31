@@ -227,6 +227,10 @@ M.getcolors = function()
 				base0F = "dragonRed",
 			},
 		},
+		["citruszest"] = {
+			subfile = "palettes.colors",
+			mapping = true,
+		},
 	}
 
 	local get_palette = function(theme_name, subfile, method, field)
