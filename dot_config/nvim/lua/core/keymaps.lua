@@ -85,6 +85,7 @@ map( "n", "<leader>cl", "<cmd>Trouble lsp toggle focus=false win.position=right<
 map("n", "<leader>db", function() require("dap").toggle_breakpoint() end, { desc = "Toggle breakpoint" })
 map("n", "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input("Condition: ")) end, { desc = "Set conditional breakpoint" })
 map("n", "<leader>dL", function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end, { desc = "Set log point" })
+map("n", "<leader>dd", function() require("dap").clear_breakpoints() end, { desc = "Clear breakpoints" })
 map("n", "<leader>dc", function() require("dap").continue() end, { desc = "Run/Continue" })
 map("n", "<leader>da", function() require("dap").continue({ before = require("utils.debug").get_args }) end, { desc = "Run with args" })
 map("n", "<leader>dC", function() require("dap").run_to_cursor() end, { desc = "Run to cursor" })

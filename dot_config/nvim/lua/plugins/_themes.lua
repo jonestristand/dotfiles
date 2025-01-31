@@ -23,4 +23,6 @@
 } ]]
 return {
 	"jonestristand/base46-colors",
+	"sho-87/kanagawa-paper.nvim",
+	"AlexvZyl/nordic.nvim",
 }
