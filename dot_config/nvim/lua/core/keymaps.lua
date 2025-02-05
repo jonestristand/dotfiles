@@ -24,8 +24,8 @@ map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result
 map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 -- Find shortcuts
-map("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files in CWD" })
-map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Find buffers" })
+map("n", "<leader>ff", function() Snacks.explorer() end, { desc = "Find files in CWD" })
+map("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Find buffers" })
 map("n", "<leader>fc", function() require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config"), }) end, { desc = "Find config files" })
 map("n", "<leader>fg", function() require("plugins.telescope.multigrep").live_multigrep() end, { desc = "Multigrep Find" })
 map("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find TODOs" })
@@ -45,6 +45,10 @@ map("n", "<leader>bd", function() require("snacks").bufdelete() end, { desc = "D
 map("n", "<C-q>", function() require("snacks").bufdelete() end, { desc = "Delete buffer" })
 map("n", "<leader>bo", function() require("snacks").bufdelete.other() end, { desc = "Delete other buffers" })
 map("n", "<leader>bD", "<cmd>bd<CR>", { desc = "Delete buffer and window" })
+map("n", "<leader>bn", "<cmd>enew<CR>", { desc = "New buffer" })
+
+-- Project stuff
+map("n", "<leader>fp", "<cmd>Telescope projections<CR>", { desc = "Projects" })
 
 -- Folds
 map("n", "zR", function() require("ufo").openAllFolds() end, { desc = "Open all folds" })

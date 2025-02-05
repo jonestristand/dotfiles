@@ -35,6 +35,16 @@ return {
 			{ "theHamsta/nvim-dap-virtual-text", opts = {} },
 		},
 		config = function()
+			require("dap").configurations["typescript"] = {
+				{
+					type = "code2",
+					request = "launch",
+					name = "Launch file",
+					program = "${file}",
+					cwd = "${workspaceFolder}",
+				},
+			}
+
 			require("mason-nvim-dap").setup({
 				handlers = {},
 				automatic_installation = true,

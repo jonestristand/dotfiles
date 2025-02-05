@@ -11,5 +11,8 @@ return {
 		toggle = {},
 		terminal = {},
 		lazygit = {},
+		picker = {
+			ui_select = true,
+		},
 	},
 }

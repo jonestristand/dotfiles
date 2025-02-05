@@ -1,1 +1,1 @@
-vim.cmd("colorscheme rosepine")
+vim.cmd("colorscheme everforest")

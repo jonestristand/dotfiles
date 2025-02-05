@@ -52,7 +52,7 @@ vim.opt.winminwidth = 5
 
 vim.opt.mouse = "a"
 
-vim.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+vim.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "globals", "folds", "winpos" }
 
 vim.opt.spelllang = { "en_us", "medical" }
 

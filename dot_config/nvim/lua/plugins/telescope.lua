@@ -35,6 +35,12 @@ return {
 			},
 			extensions = {
 				fzf = {},
+				persisted = {
+					layout_config = {
+						width = 0.5,
+						height = 0.5,
+					},
+				},
 				themes = {
 					enable_live_preview = true,
 					ignore = vim.list_extend(
