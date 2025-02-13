@@ -1,6 +1,7 @@
 return {
 	"pmizio/typescript-tools.nvim",
 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "kyoh86/climbdir.nvim" },
+	ft = { "typescript", "typescriptreact" },
 	opts = {
 		on_attach = function(client)
 			-- Fix go to definition keymap

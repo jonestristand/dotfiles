@@ -43,9 +43,8 @@ else
 	require("lazy").setup({
 		{ import = "plugins" },
 		{ import = "plugins.languages" },
-		{ "peacock.nvim", dev = true, opts = {} },
 	}, {
-		dev = { path = "~/dev/nvimplugins/" },
+		dev = { path = "~/Development/nvimplugins/" },
 		change_detection = {
 			notify = true,
 		},

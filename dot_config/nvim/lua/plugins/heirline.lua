@@ -1,16 +1,15 @@
-local colorutils = require("utils.colors")
 return {
 	"rebelot/heirline.nvim",
 	dependencies = { "Zeioth/heirline-components.nvim" },
-	lazy = false,
+	event = "UiEnter",
 	config = function()
 		local heirline = require("heirline")
 		local conditions = require("heirline.conditions")
 		local utils = require("heirline.utils")
-
+		local colorutils = require("peacock.utils.colors")
 		-- Setup
 		local function setup_colors()
-			local colors = colorutils.getcolors()
+			local colors = require("peacock.harmony").getbase46palette()
 
 			local colorlist = {}
 			for color, value in pairs(colors) do

@@ -26,6 +26,7 @@ return {
 			keymaps = {
 				["<C-s>"] = false,
 				["<C-v>"] = { "actions.select", opts = { vertical = true } },
+				["<Esc>"] = { callback = "actions.close", mode = "n" },
 			},
 		},
 		dependencies = { "echasnovski/mini.nvim" },

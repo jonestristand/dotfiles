@@ -26,38 +26,38 @@ map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 -- Find shortcuts
 map("n", "<leader>ff", function() Snacks.picker.files() end, { desc = "Find files in CWD" })
 map("n", "<leader>fb", function() Snacks.picker.buffers() end, { desc = "Find buffers" })
-map("n", "<leader>fc", function() require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config"), }) end, { desc = "Find config files" })
-map("n", "<leader>fg", function() require("plugins.telescope.multigrep").live_multigrep() end, { desc = "Multigrep Find" })
-map("n", "<leader>ft", "<cmd>TodoTelescope<CR>", { desc = "Find TODOs" })
-map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "Help" })
+map("n", "<leader>fc", function() Snacks.picker.files( { cwd = vim.fn.stdpath("config"), }) end, { desc = "Find config files" })
+map("n", "<leader>fg", function() Snacks.picker.grep() end, { desc = "Multigrep Find" })
+map("n", "<leader>fT", function() Snacks.picker.todo_comments() end, { desc = "Find TODOs" })
+map("n", "<leader>fh", function() Snacks.picker.help() end, { desc = "Help" })
 map("n", "<leader>fi", function() Snacks.picker.icons() end, { desc = "Find icons" })
 map("n", "<leader>fH", function() Snacks.picker.highlights() end, { desc = "Find highlights" })
 
 -- Files and buffers
 map("n", "<leader>e", "<cmd>Oil --float<CR>", { desc = "Show Oil.nvim" })
-map("n", "<leader>fT", "<cmd>Neotree show toggle reveal reveal_force_cwd<CR>", { desc = "Show Neotree without focus" })
+map("n", "<leader>ft", function() Snacks.explorer() end, { desc = "Show Neotree without focus" })
 
 map({ "n", "v", "i" }, "<C-s>", function() vim.cmd("write") vim.cmd("stopinsert") end)
 map("n", "<Tab>", "<cmd>bnext<CR>", { desc = "Next buffer" })
 map("n", "<S-Tab>", "<cmd>bprev<CR>", { desc = "Previous buffer" })
 map("n", "<leader>bb", "<cmd>e #<CR>", { desc = "Switch to other buffer" })
 map("n", "<leader>`", "<cmd>e #<CR>", { desc = "Switch to other buffer" })
-map("n", "<leader>bd", function() require("snacks").bufdelete() end, { desc = "Delete buffer" })
-map("n", "<C-q>", function() require("snacks").bufdelete() end, { desc = "Delete buffer" })
-map("n", "<leader>bo", function() require("snacks").bufdelete.other() end, { desc = "Delete other buffers" })
+map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete buffer" })
+map("n", "<C-q>", function() Snacks.bufdelete() end, { desc = "Delete buffer" })
+map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete other buffers" })
 map("n", "<leader>bD", "<cmd>bd<CR>", { desc = "Delete buffer and window" })
 map("n", "<leader>bn", "<cmd>enew<CR>", { desc = "New buffer" })
 
 -- Project stuff
-map("n", "<leader>fp", "<cmd>Telescope projections<CR>", { desc = "Projects" })
+map("n", "<leader>fp", function() Snacks.picker.projects() end, { desc = "Projects" })
 
 -- Folds
 map("n", "zR", function() require("ufo").openAllFolds() end, { desc = "Open all folds" })
 map("n", "zM", function() require("ufo").closeAllFolds() end, { desc = "Close all folds" })
 
 -- LSP/Code stuff
-require("snacks").toggle.dim():map("<leader>cd")
-map("n", "<leader>cr", "<cmd>Telescope lsp_references<CR>")
+Snacks.toggle.dim():map("<leader>cd")
+map("n", "<leader>cr", function() Snacks.picker.lsp_references() end, { desc = "LSP References" })
 map("n", "<leader>cf", function() require("conform").format() end, { desc = "Format current buffer" })
 map("n", "K", function()
 	local winid = require("ufo").peekFoldedLinesUnderCursor()
@@ -117,136 +117,14 @@ map({ "", "i" }, "<F12>", function() require("dap").step_out() end, { desc = "St
 
 -- Git
 map("n", "<leader>gb", function() require("gitsigns").toggle_current_line_blame() end, { desc = "Toggle git blame" })
-map("n", "<leader>gl", function() require("snacks").lazygit.open() end, { desc = "Open LazyGit" })
+map("n", "<leader>gl", function() Snacks.lazygit.open() end, { desc = "Open LazyGit" })
 
 -- Terminals
-map("n", "<leader>t", function() require("snacks").terminal.toggle() end, { desc = "Terminal (cwd)" })
+map("n", "<leader>t", function() Snacks.terminal.toggle() end, { desc = "Terminal (cwd)" })
 map("t", "<esc>", "<C-\\><C-N>", { desc = "Close terminal" })
 
 -- UI shortcuts
-map("n", "<leader>ut", function()
-  local ignore_list = { "*runtime/colors/*", "*mini*", "*random*", "*light*", "*dawn*" }
-  vim.opt.wildignore:append(ignore_list)
-  Snacks.picker.colorschemes({
-    win = {
-      preview = {
-        minimal = true
-      }
-    },
-    layout = {
-      preset = "ivy",
-      height = 0.5
-    },
-    preview = function(ctx)
-      if not ctx.preview.state.colorscheme then
-        ctx.preview.state.colorscheme = vim.g.colors_name or "default"
-        ctx.preview.state.background = vim.o.background
-        ctx.preview.win:on("WinClosed", function()
-          vim.schedule(function()
-            if not ctx.preview.state.colorscheme then
-              return
-            end
-            vim.cmd("colorscheme " .. ctx.preview.state.colorscheme)
-            vim.o.background = ctx.preview.state.background
-          end)
-        end, { win = true })
-      end
-      vim.schedule(function()
-        vim.cmd("colorscheme " .. ctx.item.text)
-      end)
-      ctx.item.preview = {
-        text = [[
-                                 
-                                 
-                                 
-  x00 x01 x02 x03 x04 x05 x06 x07
-
-                                 
-                                 
-  x08 x09 x0a x0b x0c x0d x0e x0f
-
-
-                                 
-                                 
-  red org ylw grn blu ind vio
-        ]],
-        extmarks = {
-          { row = 2, col = 02, end_col = 05, hl_group = "Swatch_base00" },
-          { row = 3, col = 02, end_col = 05, hl_group = "Swatch_base00" },
-          { row = 2, col = 06, end_col = 09, hl_group = "Swatch_base01" },
-          { row = 3, col = 06, end_col = 09, hl_group = "Swatch_base01" },
-          { row = 2, col = 10, end_col = 13, hl_group = "Swatch_base02" },
-          { row = 3, col = 10, end_col = 13, hl_group = "Swatch_base02" },
-          { row = 2, col = 14, end_col = 17, hl_group = "Swatch_base03" },
-          { row = 3, col = 14, end_col = 17, hl_group = "Swatch_base03" },
-          { row = 2, col = 18, end_col = 21, hl_group = "Swatch_base04" },
-          { row = 3, col = 18, end_col = 21, hl_group = "Swatch_base04" },
-          { row = 2, col = 22, end_col = 25, hl_group = "Swatch_base05" },
-          { row = 3, col = 22, end_col = 25, hl_group = "Swatch_base05" },
-          { row = 2, col = 26, end_col = 29, hl_group = "Swatch_base06" },
-          { row = 3, col = 26, end_col = 29, hl_group = "Swatch_base06" },
-          { row = 2, col = 30, end_col = 33, hl_group = "Swatch_base07" },
-          { row = 3, col = 30, end_col = 33, hl_group = "Swatch_base07" },
-
-
-          { row = 6, col = 02, end_col = 05, hl_group = "Swatch_base08" },
-          { row = 7, col = 02, end_col = 05, hl_group = "Swatch_base08" },
-          { row = 6, col = 06, end_col = 09, hl_group = "Swatch_base09" },
-          { row = 7, col = 06, end_col = 09, hl_group = "Swatch_base09" },
-          { row = 6, col = 10, end_col = 13, hl_group = "Swatch_base0A" },
-          { row = 7, col = 10, end_col = 13, hl_group = "Swatch_base0A" },
-          { row = 6, col = 14, end_col = 17, hl_group = "Swatch_base0B" },
-          { row = 7, col = 14, end_col = 17, hl_group = "Swatch_base0B" },
-          { row = 6, col = 18, end_col = 21, hl_group = "Swatch_base0C" },
-          { row = 7, col = 18, end_col = 21, hl_group = "Swatch_base0C" },
-          { row = 6, col = 22, end_col = 25, hl_group = "Swatch_base0D" },
-          { row = 7, col = 22, end_col = 25, hl_group = "Swatch_base0D" },
-          { row = 6, col = 26, end_col = 29, hl_group = "Swatch_base0E" },
-          { row = 7, col = 26, end_col = 29, hl_group = "Swatch_base0E" },
-          { row = 6, col = 30, end_col = 33, hl_group = "Swatch_base0F" },
-          { row = 7, col = 30, end_col = 33, hl_group = "Swatch_base0F" },
-
-          { row = 11, col = 02, end_col = 05, hl_group = "Swatch_red" },
-          { row = 12, col = 02, end_col = 05, hl_group = "Swatch_red" },
-          { row = 11, col = 06, end_col = 09, hl_group = "Swatch_orange" },
-          { row = 12, col = 06, end_col = 09, hl_group = "Swatch_orange" },
-          { row = 11, col = 10, end_col = 13, hl_group = "Swatch_yellow" },
-          { row = 12, col = 10, end_col = 13, hl_group = "Swatch_yellow" },
-          { row = 11, col = 14, end_col = 17, hl_group = "Swatch_green" },
-          { row = 12, col = 14, end_col = 17, hl_group = "Swatch_green" },
-          { row = 11, col = 18, end_col = 21, hl_group = "Swatch_blue" },
-          { row = 12, col = 18, end_col = 21, hl_group = "Swatch_blue" },
-          { row = 11, col = 22, end_col = 25, hl_group = "Swatch_dark_purple" },
-          { row = 12, col = 22, end_col = 25, hl_group = "Swatch_dark_purple" },
-          { row = 11, col = 26, end_col = 29, hl_group = "Swatch_purple" },
-          { row = 12, col = 26, end_col = 29, hl_group = "Swatch_purple" },
-          -- { row = 11, col = 30, end_col = 33, hl_group = "Swatch_base0F" },
-          -- { row = 12, col = 30, end_col = 33, hl_group = "Swatch_base0F" },
-        }
-      }
-      vim.opt.number = false
-      Snacks.picker.preview.preview(ctx)
-      ctx.preview:set_title(ctx.item.text:gsub("^%l", string.upper) .. " Swatches")
-      -- vim.print(vim.api.nvim_get_hl(ns, { name="Base00Swatch"}).fg)
-    end,
-    confirm = function(picker, item)
-      picker:close()
-      if item then
-        picker.preview.state.colorscheme = nil
-        vim.schedule(function() vim.cmd("colorscheme " .. item.text) end)
-
-        -- Save the colorscheme to the user config
-        local colorscheme_file = io.open(vim.fn.stdpath("config") .. "/lua/current-theme.lua", "w")
-        if colorscheme_file then
-          colorscheme_file:write("vim.cmd('colorscheme " .. item.text .. "')")
-          colorscheme_file:close()
-        end
-      end
-    end,
-    -- preview = 
-  })
-  vim.opt.wildignore:remove(ignore_list)
-end)
+map("n", "<leader>ut", function() require("peacock.picker").colorschemes() end, { desc = "Select color scheme" })
 
 -- Window shortcuts
 map({ "n", "v", "i" }, "<A-l>", function() require("tmux").move_right() end)
@@ -263,7 +141,7 @@ map("n", "<leader>w", "<c-w>", { desc = "Windows", remap = true })
 map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
-require("snacks").toggle.zoom():map("<leader>wm"):map("<leader>uZ")
+Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
 
 -- tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
